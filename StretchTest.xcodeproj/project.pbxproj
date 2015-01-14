@@ -13,6 +13,8 @@
 		5710A7BA1A60981200014991 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5710A7B91A60981200014991 /* Images.xcassets */; };
 		5710A7BD1A60981200014991 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5710A7BB1A60981200014991 /* LaunchScreen.xib */; };
 		5710A7C91A60981200014991 /* StretchTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5710A7C81A60981200014991 /* StretchTestTests.swift */; };
+		57CBAA1D1A66E40B00808391 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CBAA1C1A66E40B00808391 /* CustomTextView.swift */; };
+		57CBAA1F1A66F34F00808391 /* CustomUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CBAA1E1A66F34F00808391 /* CustomUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		5710A7C21A60981200014991 /* StretchTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StretchTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5710A7C71A60981200014991 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5710A7C81A60981200014991 /* StretchTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchTestTests.swift; sourceTree = "<group>"; };
+		57CBAA1C1A66E40B00808391 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		57CBAA1E1A66F34F00808391 /* CustomUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 			children = (
 				5710A7B21A60981200014991 /* AppDelegate.swift */,
 				5710A7B41A60981200014991 /* ViewController.swift */,
+				57CBAA1C1A66E40B00808391 /* CustomTextView.swift */,
+				57CBAA1E1A66F34F00808391 /* CustomUIView.swift */,
 				5710A7B61A60981200014991 /* Main.storyboard */,
 				5710A7B91A60981200014991 /* Images.xcassets */,
 				5710A7BB1A60981200014991 /* LaunchScreen.xib */,
@@ -213,7 +219,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5710A7B51A60981200014991 /* ViewController.swift in Sources */,
+				57CBAA1F1A66F34F00808391 /* CustomUIView.swift in Sources */,
 				5710A7B31A60981200014991 /* AppDelegate.swift in Sources */,
+				57CBAA1D1A66E40B00808391 /* CustomTextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +415,7 @@
 				5710A7CE1A60981200014991 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5710A7CF1A60981200014991 /* Build configuration list for PBXNativeTarget "StretchTestTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +424,7 @@
 				5710A7D11A60981200014991 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
