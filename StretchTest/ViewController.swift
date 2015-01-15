@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     private var viewRasterizationScale: Bool = false
     private var textContentsScale: Bool = false
     private var textRasterizationScale: Bool = false
+    private var layerContentsScale: Bool = false
+    private var textLayerContentsScale: Bool = false
     
     private var scaleAmount:CGFloat = 2.5 //1024.0/768.0
     private var textField: UITextView = UITextView();
@@ -67,6 +69,20 @@ class ViewController: UIViewController {
         textRasterizationScaleButton.titleLabel!.font = UIFont.systemFontOfSize(10.0)
         textRasterizationScaleButton.addTarget(self, action: "textRasterizationScale:", forControlEvents: .TouchUpInside)
         
+        // Set up text Rasterization Scale button
+        let layerContentsScaleButton = UIButton(frame:CGRect(x:screenCenter.x-150,y:screenCenter.y+100,width:125,height:20))
+        layerContentsScaleButton.backgroundColor = UIColor.blackColor()
+        layerContentsScaleButton.setTitle("Layer Contents Scale", forState: .Normal)
+        layerContentsScaleButton.titleLabel!.font = UIFont.systemFontOfSize(10.0)
+        layerContentsScaleButton.addTarget(self, action: "layerContentScaleButtonPressed:", forControlEvents: .TouchUpInside)
+        
+        // Set up text Rasterization Scale button
+        let textLayerContentsScaleButton = UIButton(frame:CGRect(x:screenCenter.x-150,y:screenCenter.y+130,width:125,height:20))
+        textLayerContentsScaleButton.backgroundColor = UIColor.blackColor()
+        textLayerContentsScaleButton.setTitle("Text Layer Contents Scale", forState: .Normal)
+        textLayerContentsScaleButton.titleLabel!.font = UIFont.systemFontOfSize(10.0)
+        textLayerContentsScaleButton.addTarget(self, action: "textLayerContentScaleButtonPressed:", forControlEvents: .TouchUpInside)
+        
    //     var currentContext = UIGraphicsGetCurrentContext()
      //   CGContextScaleCTM(currentContext, 5, 5)
         
@@ -77,6 +93,8 @@ class ViewController: UIViewController {
         view.addSubview(viewRasterizationScaleButton)
         view.addSubview(textContentsScaleButton)
         view.addSubview(textRasterizationScaleButton)
+        view.addSubview(layerContentsScaleButton)
+        view.addSubview(textLayerContentsScaleButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,6 +103,8 @@ class ViewController: UIViewController {
     }
 
     func affineScale(sender: UIButton!) {
+        view = recreateView(view)
+        
         if !affineScaleOn {
             view.transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleAmount, scaleAmount)
             affineScaleOn = true
@@ -101,6 +121,8 @@ class ViewController: UIViewController {
     }
     
     func contentScaleButtonPressed(sender:UIButton!) {
+        view = recreateView(view)
+        
         if contentsScaleOn {
             // Turn off
             contentsScaleOn = false
@@ -119,7 +141,30 @@ class ViewController: UIViewController {
         view.setNeedsDisplay()
     }
     
+    func layerContentScaleButtonPressed(sender:UIButton!) {
+        view = recreateView(view)
+        
+        if layerContentsScale {
+            // Turn off
+            layerContentsScale = false
+            
+            view.layer.contentsScale = UIScreen.mainScreen().scale
+            sender.backgroundColor = UIColor.blackColor()
+        }
+        else {
+            // Turn On
+            layerContentsScale = true
+            
+            view.layer.contentsScale = scaleAmount * UIScreen.mainScreen().scale
+            sender.backgroundColor = UIColor.greenColor()
+        }
+        
+        view.setNeedsDisplay()
+    }
+    
     func viewRasterizationScale(sender:UIButton!) {
+        view = recreateView(view)
+        
         if viewRasterizationScale {
             // Turn Off
             viewRasterizationScale = false
@@ -141,6 +186,8 @@ class ViewController: UIViewController {
     }
     
     func textContentScaleButtonPressed(sender:UIButton!) {
+        textField = recreateView(textField) as UITextView
+        
         if textContentsScale {
             // Turn Off
             textContentsScale = false
@@ -160,7 +207,31 @@ class ViewController: UIViewController {
         view.setNeedsDisplay()
     }
     
+    func textLayerContentScaleButtonPressed(sender:UIButton!) {
+        textField = recreateView(textField) as UITextView
+        
+        if textLayerContentsScale {
+            // Turn Off
+            textLayerContentsScale = false
+            
+            textField.layer.contentsScale = UIScreen.mainScreen().scale
+            sender.backgroundColor = UIColor.blackColor()
+        }
+        else {
+            // Turn On
+            textLayerContentsScale = true
+            
+            textField.layer.contentsScale = scaleAmount * UIScreen.mainScreen().scale
+            sender.backgroundColor = UIColor.greenColor()
+        }
+        
+        textField.setNeedsDisplay()
+        view.setNeedsDisplay()
+    }
+    
     func textRasterizationScale(sender:UIButton!) {
+        textField = recreateView(textField) as UITextView
+        
         if textRasterizationScale {
             // Turn Off
             textRasterizationScale = false
@@ -180,6 +251,38 @@ class ViewController: UIViewController {
         
         textField.setNeedsDisplay()
         view.setNeedsDisplay()
+    }
+    
+    func recreateView(originalView: UIView) -> UIView {
+        // if this is a text view, set their properties
+        var newView: UIView
+        if let originalTextView = originalView as? UITextView {
+            var newTextView = UITextView(frame: originalTextView.frame)
+            newTextView.text = originalTextView.text
+            newTextView.font = originalTextView.font
+            newView = newTextView
+            
+            originalTextView.superview!.addSubview(newView)
+            originalTextView.removeFromSuperview()
+        }
+        else {
+            newView = UIView(frame: originalView.frame)
+            newView.backgroundColor = originalView.backgroundColor
+        }
+        
+        for child in originalView.subviews {
+            if let subview = child as? UIView {
+                newView.addSubview(subview)
+            }
+        }
+        
+        newView.contentScaleFactor = originalView.contentScaleFactor
+        newView.transform = originalView.transform
+        newView.layer.contentsScale = originalView.layer.contentsScale
+        newView.layer.shouldRasterize = originalView.layer.shouldRasterize
+        newView.layer.rasterizationScale = originalView.layer.rasterizationScale
+        
+        return newView;
     }
     
     // MARK: Not being used
