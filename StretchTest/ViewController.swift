@@ -186,6 +186,7 @@ class ViewController: UIViewController {
     }
     
     func textContentScaleButtonPressed(sender:UIButton!) {
+        let oldTextField = textField
         textField = recreateView(textField) as UITextView
         
         if textContentsScale {
@@ -203,11 +204,15 @@ class ViewController: UIViewController {
             sender.backgroundColor = UIColor.greenColor()
         }
         
+        oldTextField.removeFromSuperview()
+        view.addSubview(textField)
+        
         textField.setNeedsDisplay()
         view.setNeedsDisplay()
     }
     
     func textLayerContentScaleButtonPressed(sender:UIButton!) {
+        let oldTextField = textField
         textField = recreateView(textField) as UITextView
         
         if textLayerContentsScale {
@@ -225,11 +230,15 @@ class ViewController: UIViewController {
             sender.backgroundColor = UIColor.greenColor()
         }
         
+        oldTextField.removeFromSuperview()
+        view.addSubview(textField)
+        
         textField.setNeedsDisplay()
         view.setNeedsDisplay()
     }
     
     func textRasterizationScale(sender:UIButton!) {
+        let oldTextField = textField
         textField = recreateView(textField) as UITextView
         
         if textRasterizationScale {
@@ -249,6 +258,9 @@ class ViewController: UIViewController {
             sender.backgroundColor = UIColor.greenColor()
         }
         
+        oldTextField.removeFromSuperview()
+        view.addSubview(textField)
+        
         textField.setNeedsDisplay()
         view.setNeedsDisplay()
     }
@@ -261,9 +273,6 @@ class ViewController: UIViewController {
             newTextView.text = originalTextView.text
             newTextView.font = originalTextView.font
             newView = newTextView
-            
-            originalTextView.superview!.addSubview(newView)
-            originalTextView.removeFromSuperview()
         }
         else {
             newView = UIView(frame: originalView.frame)
