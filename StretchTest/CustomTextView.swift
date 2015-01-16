@@ -10,10 +10,21 @@ import Foundation
 import UIKit
 
 class CustomTextView: UITextView {
-   override func drawRect(rect: CGRect) {
-        var currentContext = UIGraphicsGetCurrentContext()
-        CGContextScaleCTM(currentContext, 2, 2)
-    
-        layer.drawInContext(currentContext)
+    override func drawRect(rect: CGRect) {
+        var context = UIGraphicsGetCurrentContext()
+        //CGContextScaleCTM(context, 2, 2)
+
+        //layer.drawInContext(currentContext)
+        super.drawRect(rect)
+        
+//        CGContextBeginPath(context);
+//
+//        CGContextMoveToPoint(context, 0, 0)
+//        CGContextAddLineToPoint(context, 0, 100)
+//        CGContextSetLineWidth(context, 1);
+//        
+//        CGContextStrokePath(context);
+        
+        //CGContextScaleCTM(context, 0.5, 0.5)
     }
 }

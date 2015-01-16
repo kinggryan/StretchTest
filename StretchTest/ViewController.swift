@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     private var textLayerContentsScale: Bool = false
     
     private var scaleAmount:CGFloat = 2.5 //1024.0/768.0
-    private var textField: UITextView = UITextView();
+    private var textField: CustomTextView = CustomTextView();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         let screenCenter: CGPoint = CGPoint(x: UIScreen.mainScreen().bounds.width/2,y: UIScreen.mainScreen().bounds.height/2)
 
         // Set up text field
-        textField = UITextView(frame: CGRect(x:screenCenter.x-25,y:screenCenter.y,width:200,height:50))
+        textField = CustomTextView(frame: CGRect(x:screenCenter.x-25,y:screenCenter.y,width:200,height:50))
         textField.text = "words"
         textField.font = UIFont.systemFontOfSize(18)
         
@@ -187,7 +187,7 @@ class ViewController: UIViewController {
     
     func textContentScaleButtonPressed(sender:UIButton!) {
         let oldTextField = textField
-        textField = recreateView(textField) as UITextView
+        textField = recreateView(textField) as CustomTextView
         
         if textContentsScale {
             // Turn Off
@@ -213,7 +213,7 @@ class ViewController: UIViewController {
     
     func textLayerContentScaleButtonPressed(sender:UIButton!) {
         let oldTextField = textField
-        textField = recreateView(textField) as UITextView
+        textField = recreateView(textField) as CustomTextView
         
         if textLayerContentsScale {
             // Turn Off
@@ -239,7 +239,7 @@ class ViewController: UIViewController {
     
     func textRasterizationScale(sender:UIButton!) {
         let oldTextField = textField
-        textField = recreateView(textField) as UITextView
+        textField = recreateView(textField) as CustomTextView
         
         if textRasterizationScale {
             // Turn Off
@@ -268,8 +268,8 @@ class ViewController: UIViewController {
     func recreateView(originalView: UIView) -> UIView {
         // if this is a text view, set their properties
         var newView: UIView
-        if let originalTextView = originalView as? UITextView {
-            var newTextView = UITextView(frame: originalTextView.frame)
+        if let originalTextView = originalView as? CustomTextView {
+            var newTextView = CustomTextView(frame: originalTextView.frame)
             newTextView.text = originalTextView.text
             newTextView.font = originalTextView.font
             newView = newTextView
